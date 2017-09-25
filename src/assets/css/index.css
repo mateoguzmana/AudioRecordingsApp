@@ -22,11 +22,11 @@ html, body {
   top: 25%;
   bottom: 30%;
   padding: 30px;
-  max-width: 350px;
-  max-height: 350px;
+  max-width: 600px;;
+  max-height: 600px;;
   height: 100%;
   width: 100% !important;
-  background-color: #F7F7F7;
+  border-color: white;
   margin: 0 auto;
   border-radius: 2px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
@@ -34,9 +34,12 @@ html, body {
 }
 
 .loginContainer h1 {
+  color: #fff;
   text-align: center;
-  font-size: 1.8em;
-  font-family: roboto;
+  margin-bottom: 20px;
+  font-family: 'Open Sans';
+  font-weight: 500;
+  font-size: 51px;
 }
 
 .loginContainer input[type=submit] {
@@ -46,9 +49,10 @@ html, body {
   position: relative;
 }
 
-.loginContainer input[type=text], input[type=password] {
-  height: 44px;
-  font-size: 16px;
+.loginContainer input[type=email], input[type=password] {
+  height:55px;
+  border-radius:2px 2px 2px ;
+  font-size: 14px;
   width: 100%;
   margin-bottom: 10px;
   -webkit-appearance: none;
@@ -56,9 +60,18 @@ html, body {
   border: 1px solid #d9d9d9;
   border-top: 1px solid #c0c0c0;
   /* border-radius: 2px; */
-  padding: 0 8px;
+  padding: 0 12px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
+}
+
+input.invalid{
+    border: 1px solid #FF3838 !important;
+    border-top: 1px solid #FF3030 !important;
+}
+
+.labelError {
+    color: #C04E4E;
 }
 
 .loginContainer input[type=text]:hover, input[type=password]:hover {
@@ -74,7 +87,7 @@ html, body {
   border: 0px;
   color: #fff;
   text-shadow: 0 1px rgba(0,0,0,0.1); 
-  background-color: #4d90fe;
+  background-color: rgba(49,49,111,0.3);
   padding: 17px 0px;
   font-family: roboto;
   font-size: 14px;
@@ -90,11 +103,11 @@ html, body {
 }
 
 .loginContainer a {
-  text-decoration: none;
-  color: #666;
-  font-weight: 400;
-  text-align: center;
-  display: inline-block;
-  opacity: 0.6;
-  transition: opacity ease 0.5s;
-} 
+    text-decoration: none;
+    color: #666;
+    font-weight: 400;
+    text-align: center;
+    display: inline-block;
+    opacity: 0.6;
+    transition: opacity ease 0.5s;
+  } 

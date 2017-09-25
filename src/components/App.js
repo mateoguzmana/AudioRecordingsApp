@@ -6,14 +6,12 @@ export default class App extends Component {
     super(props);
     this.state = {
     };
-
-    this.classContainer = "loginPage";
   }
 
   render() {
     return (
-      <div className={this.classContainer}>
-        <Login/>
+      <div>
+        <Login />
       </div>
     );
   }
