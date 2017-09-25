@@ -1,0 +1,23 @@
+{
+  "name": "AudioRecordingsApp",
+  "version": "1.0.0",
+  "homepage": "http://mateoguzmana.github.io/AudioRecordingsApp",
+  "devDependencies": {
+    "gh-pages": "^0.11.0",
+    "react-scripts": "0.4.1"
+  },
+  "dependencies": {
+    "big.js": "^3.1.3",
+    "github-fork-ribbon-css": "^0.2.1",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/react-scripts/config/eslint.js"
+  }
+}
