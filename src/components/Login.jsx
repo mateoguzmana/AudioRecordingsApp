@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import LoginActions from '../actions/LoginActions';
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
-            password: "",
+            email: "challenge@i2x.ai",
+            password: "pass123",
             validEmail: "",
             validPassword: ""
         };
@@ -28,14 +29,28 @@ export default class Login extends Component {
         this.setState({ password: e.target.value });
     }
 
+    setLogin(data){
+        alert(data.token);
+    }
+
+    failedLogin(data){
+        console.log(data.non_field_errors[0]);
+    }
+
     onSubmit() {
+        let loginActions = new LoginActions();
         //display error messages if it has any data wrong
         this.validateEmail(this.state.email) ? this.setState({ validEmail: "" }) : this.setState({ validEmail: "invalid" });
         this.state.password.length > 0 ? this.setState({ validPassword: "" }) : this.setState({ validPassword: "invalid" })
 
         //call API
         if (this.validateEmail(this.state.email) && this.state.password.length > 0) {
-            console.log("call");
+           loginActions.login(
+               this.state.email, 
+               this.state.password, 
+               (data) => this.setLogin(data),
+               (data) => this.failedLogin(data)
+            );
         }
 
     }
