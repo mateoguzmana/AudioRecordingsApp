@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import Login from './Login';
+import RecordingsList from './RecordingsList';
 
 export default class App extends Component {
   constructor(props) {
@@ -10,9 +12,11 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        <Login />
-      </div>
+      <Switch>
+        <Route exact path='/' component={Login} />
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/recordings' component={RecordingsList} />
+      </Switch>
     );
   }
 }
