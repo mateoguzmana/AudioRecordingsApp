@@ -31,12 +31,18 @@ export default class Login extends Component {
     }
 
     setLogin(data){
+        //save token in localStorage
         localStorage.setItem('userToken', data.token);
     }
 
     failedLogin(data){
+        //set message
         this.setState({errorMessage: data.non_field_errors[0]});
+
+        //show error login message
         $(".errorLoginMessage").fadeIn(); 
+
+        //hide error login message
         setTimeout(() => {
             $(".errorLoginMessage").fadeOut(); 
         }, 3000);     
