@@ -31,7 +31,7 @@ export default class Login extends Component {
     }
 
     setLogin(data){
-        alert(data.token);
+        localStorage.setItem('userToken', data.token);
     }
 
     failedLogin(data){
