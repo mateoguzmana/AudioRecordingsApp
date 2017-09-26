@@ -74,6 +74,15 @@ input.invalid{
     color: #C04E4E;
 }
 
+.errorLoginMessage {
+  display: none;
+  background-color: #F8C3C3;
+  color: #FF3030;
+  border-color: #6B0000;
+  opacity: 0.6;
+  text-align: center;
+}
+
 .loginContainer input[type=text]:hover, input[type=password]:hover {
   border: 1px solid #b9b9b9;
   border-top: 1px solid #a0a0a0;

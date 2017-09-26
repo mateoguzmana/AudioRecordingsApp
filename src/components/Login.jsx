@@ -8,7 +8,8 @@ export default class Login extends Component {
             email: "challenge@i2x.ai",
             password: "pass123",
             validEmail: "",
-            validPassword: ""
+            validPassword: "",
+            errorMessage: null
         };
 
         this.setEmail = this.setEmail.bind(this);
@@ -34,7 +35,11 @@ export default class Login extends Component {
     }
 
     failedLogin(data){
-        console.log(data.non_field_errors[0]);
+        this.setState({errorMessage: data.non_field_errors[0]});
+        $(".errorLoginMessage").fadeIn(); 
+        setTimeout(() => {
+            $(".errorLoginMessage").fadeOut(); 
+        }, 3000);     
     }
 
     onSubmit() {
@@ -88,6 +93,7 @@ export default class Login extends Component {
                         value="Login" 
                         onClick={this.onSubmit} 
                     />
+                    <div className="alert errorLoginMessage">{this.state.errorMessage}</div>
                 </div>
             </div>
         );
