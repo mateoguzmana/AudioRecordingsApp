@@ -158,6 +158,9 @@ export default class RecordingsList extends Component {
     render() {
         return (
             <div className="recordingsListPage">
+                <div className="headerPage">
+                    content
+                </div>
                 <div className="recordingsListContainer">
                     {
                         this.state.ajax ?
