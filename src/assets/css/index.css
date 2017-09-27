@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     width: 100%;
     margin: 0;
+    overflow: scroll;
 }
 
 /* Login */
@@ -129,7 +130,7 @@ input.invalid{
     background-position: center;
     position: fixed;
     width: 100%;
-    height: 100%;
+    height: 120%;
   }
 
   .recordingsListContainer {
@@ -149,6 +150,8 @@ input.invalid{
     align-items: center;
     justify-content: center;
     margin-top: 25px;
+    border: none;
+    outline: 0 !important;
   }
 
   .playButton:hover{
@@ -159,3 +162,38 @@ input.invalid{
     width: 40px;
     height: 40px;
   }
+
+  .recordingDescription {
+    color: rgba(255, 255, 255, 0.71);
+  }
+
+  .recordingTime {
+    color: rgba(255, 255, 255, 0.71);
+  }
+
+  .recordingDate {
+    color: rgba(255, 255, 255, 0.71);
+  }
+
+  .recordingRating {
+    color: rgba(255, 255, 255, 0.71);
+  }
+
+  .recordingData {
+    font-size: 18px;
+    text-align: right;
+  }
+
+  .star {
+    width: 25px;
+    height: 25px;
+  }
+
+  .headerRecording {
+    display: none;
+  }
+
+  .headerRecordingShow {
+    display: block;
+  }
+  
