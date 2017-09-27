@@ -35,12 +35,13 @@ export default class RecordingsList extends Component {
                 this.recordingsList = data.results;
                 console.log(this.recordingsList);
                 this.setState({ redirect: false, ajax: true });
-            }, 
+            },
             (error) => {
                 //if it does not return data is because token expired or is invalid
                 console.log(error);
                 this.setState({ redirect: true });
-            });
+            }
+        );
 
     }
 
@@ -58,17 +59,27 @@ export default class RecordingsList extends Component {
     render() {
         return (
             <div className="recordingsListPage">
+                <div className="recordingsListContainer">
                 {
                     this.state.ajax ?
-                        this.recordingsList.map((recording) =>
-                            <div>
-                                <Wavesurfer
-                                    audioFile={recording.url}
-                                    pos={this.state.pos}
-                                    onPosChange={this.handlePosChange}
-                                    playing={this.state.playing}
-                                />
-                                <button onClick={this.handleTogglePlay}>Play</button>
+                        this.recordingsList.map((recording, i) =>
+                            <div key={i} className="recording row">
+                                    <div className="col-sm-1 text-center">
+                                        <button 
+                                            onClick={this.handleTogglePlay} 
+                                            className="btn playButton"
+                                        >
+                                            <img src="https://maxcdn.icons8.com/Share/icon/Media_Controls//play_filled1600.png"/>
+                                        </button>
+                                    </div>
+                                    <div className="col-sm-11">
+                                        <Wavesurfer
+                                            audioFile={recording.url}
+                                            pos={this.state.pos}
+                                            onPosChange={this.handlePosChange}
+                                            playing={this.state.playing}
+                                        />
+                                    </div>
                             </div>
                         ) :
                         <div>Loading...</div>
@@ -79,6 +90,7 @@ export default class RecordingsList extends Component {
                             <Redirect to="/login" />
                         ) : null
                 }
+                </div>
             </div>
         );
     }
