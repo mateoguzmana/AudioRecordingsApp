@@ -8,6 +8,14 @@ export default class App extends Component {
     super(props);
     this.state = {
     };
+
+    this.checkToken = this.checkToken.bind(this);
+  }
+
+  checkToken() {
+    if(localStorage.getItem("userToken") !== "") {
+        return RecordingsList;
+    }
   }
 
   render() {
@@ -15,7 +23,7 @@ export default class App extends Component {
       <Switch>
         <Route exact path='/' component={Login} />
         <Route exact path='/login' component={Login} />
-        <Route exact path='/recordings' component={RecordingsList} />
+        <Route exact path='/recordings' component={this.checkToken()} />
       </Switch>
     );
   }
