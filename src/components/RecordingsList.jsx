@@ -12,7 +12,8 @@ export default class RecordingsList extends Component {
         this.state = {
             playing: false,
             pos: 0,
-            redirect: false
+            redirect: false,
+            ajax: false
         };
         this.handleTogglePlay = this.handleTogglePlay.bind(this);
         this.handlePosChange = this.handlePosChange.bind(this);
@@ -33,10 +34,11 @@ export default class RecordingsList extends Component {
             (data) => {
                 this.recordingsList = data.results;
                 console.log(this.recordingsList);
-                this.setState({ redirect: false });
-            }, (data) => {
+                this.setState({ redirect: false, ajax: true });
+            }, 
+            (error) => {
                 //if it does not return data is because token expired or is invalid
-                console.log("data");
+                console.log(error);
                 this.setState({ redirect: true });
             });
 
@@ -56,13 +58,21 @@ export default class RecordingsList extends Component {
     render() {
         return (
             <div className="recordingsListPage">
-                <Wavesurfer
-                    audioFile={'https://freesound.org/data/previews/313/313615_2050105-lq.ogg'}
-                    pos={this.state.pos}
-                    onPosChange={this.handlePosChange}
-                    playing={this.state.playing}
-                />
-                <button onClick={this.handleTogglePlay}>Play</button>
+                {
+                    this.state.ajax ?
+                        this.recordingsList.map((recording) =>
+                            <div>
+                                <Wavesurfer
+                                    audioFile={recording.url}
+                                    pos={this.state.pos}
+                                    onPosChange={this.handlePosChange}
+                                    playing={this.state.playing}
+                                />
+                                <button onClick={this.handleTogglePlay}>Play</button>
+                            </div>
+                        ) :
+                        <div>Loading...</div>
+                }
                 {
                     this.state.redirect ?
                         (
