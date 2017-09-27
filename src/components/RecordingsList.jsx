@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router';
 import Wavesurfer from 'react-wavesurfer';
+import RecordingsListActions from '../actions/RecordingsListActions';
 
 export default class RecordingsList extends Component {
     constructor(props) {
@@ -19,32 +20,26 @@ export default class RecordingsList extends Component {
     }
 
     componentDidMount() {
-        this.checkToken();
         this.getRecordingsList();
     }
 
-    checkToken(){
-        if(localStorage.getItem("userToken") !== ""){
-            this.setState({ redirect: false });
-        }else{
-            //redirect to login
-            this.setState({ redirect: true });
-        }
-    }
-
     getRecordingsList() {
+        //get token from localStorage
+        let userToken = localStorage.getItem("userToken");
+
         //call action for call API and return list
-        console.log("return list");
-        //this is just an example without get nothing from the server
-        this.recordingsList = [
-            {
-                final_script: "Description text",
-                rating: 4,
-                duration: 920,
-                url: "https://smp3dl.com/fileDownload/Songs/0/30191.mp3",
-                created: "25-01-2017"
-            }
-        ]
+        let recordingsListActions = new RecordingsListActions();
+        recordingsListActions.getList(userToken,
+            (data) => {
+                this.recordingsList = data.results;
+                console.log(this.recordingsList);
+                this.setState({ redirect: false });
+            }, (data) => {
+                //if it does not return data is because token expired or is invalid
+                console.log("data");
+                this.setState({ redirect: true });
+            });
+
     }
 
     handleTogglePlay() {
@@ -62,17 +57,17 @@ export default class RecordingsList extends Component {
         return (
             <div className="recordingsListPage">
                 <Wavesurfer
-                    audioFile={'https://wavesurfer-js.org/example/split-channels/stereo.mp3'}
+                    audioFile={'https://freesound.org/data/previews/313/313615_2050105-lq.ogg'}
                     pos={this.state.pos}
                     onPosChange={this.handlePosChange}
                     playing={this.state.playing}
                 />
                 <button onClick={this.handleTogglePlay}>Play</button>
-                {   
+                {
                     this.state.redirect ?
-                    (
-                        <Redirect to="/login"/>
-                    ) : null
+                        (
+                            <Redirect to="/login" />
+                        ) : null
                 }
             </div>
         );

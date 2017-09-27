@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import LoginActions from '../actions/LoginActions';
 import { Redirect } from 'react-router';
+import LoginActions from '../actions/LoginActions';
 
 export default class Login extends Component {
     constructor(props) {
