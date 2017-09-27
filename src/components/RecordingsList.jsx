@@ -2,6 +2,7 @@ require('wavesurfer.js');
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Redirect } from 'react-router';
 import Wavesurfer from 'react-wavesurfer';
 
 export default class RecordingsList extends Component {
@@ -9,7 +10,8 @@ export default class RecordingsList extends Component {
         super(props);
         this.state = {
             playing: false,
-            pos: 0
+            pos: 0,
+            redirect: false
         };
         this.handleTogglePlay = this.handleTogglePlay.bind(this);
         this.handlePosChange = this.handlePosChange.bind(this);
@@ -17,7 +19,17 @@ export default class RecordingsList extends Component {
     }
 
     componentDidMount() {
+        this.checkToken();
         this.getRecordingsList();
+    }
+
+    checkToken(){
+        if(localStorage.getItem("userToken") !== ""){
+            this.setState({ redirect: false });
+        }else{
+            //redirect to login
+            this.setState({ redirect: true });
+        }
     }
 
     getRecordingsList() {
@@ -56,6 +68,12 @@ export default class RecordingsList extends Component {
                     playing={this.state.playing}
                 />
                 <button onClick={this.handleTogglePlay}>Play</button>
+                {   
+                    this.state.redirect ?
+                    (
+                        <Redirect to="/login"/>
+                    ) : null
+                }
             </div>
         );
     }
