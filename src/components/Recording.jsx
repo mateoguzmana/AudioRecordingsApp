@@ -6,6 +6,7 @@ import yellowStar from '../assets/images/yellowStar.png';
 import blackStar from '../assets/images/blackStar.png';
 
 export default class Recording extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -15,25 +16,59 @@ export default class Recording extends Component {
 
         this.handleTogglePlay = this.handleTogglePlay.bind(this);
         this.handlePosChange = this.handlePosChange.bind(this);
+
+        this.intervalChangeColors = null;
+    }
+
+    componentDidMount() {
+    }
+
+    changeCanvasColor(i) {
+        var canvas = $("#Wavesurfer" + i).find("canvas")[1];
+        var c = canvas.getContext('2d');
+        this.intervalChangeColors = setInterval(() => {
+            c.fillStyle = this.getRandomColor();
+            c.fill();
+        }, 1000);
+        this.intervalChangeColors;
+        setTimeout(() => {
+            clearInterval(this.intervalChangeColors);
+        }, this.props.duration * 1000);
+    }
+
+    getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
 
     handleTogglePlay(i) {
-        this.setState({playing: !this.state.playing});
+        this.setState({ playing: !this.state.playing });
+        setTimeout(() => {
+            if (this.state.playing) {
+                this.changeCanvasColor(i);
+            } else {
+                clearInterval(this.intervalChangeColors);
+            }
+        }, 100);
     }
 
     handlePosChange(e, i) {
-        this.setState({pos: e.originalArgs[0]});
+        this.setState({ pos: e.originalArgs[0] });
     }
 
-    printStars(rating){
+    printStars(rating) {
         var stars = [];
-        for (var i=0; i < rating; i++) {
-            stars.push(<img src={yellowStar} className="star"/>);
+        for (var i = 0; i < rating; i++) {
+            stars.push(<img src={yellowStar} className="star" />);
         }
 
-        if(rating<5){
-            for(var x = 0; x < (5-rating); x++){
-                stars.push(<img src={blackStar} className="star"/>);
+        if (rating < 5) {
+            for (var x = 0; x < (5 - rating); x++) {
+                stars.push(<img src={blackStar} className="star" />);
             }
         }
 
@@ -45,26 +80,26 @@ export default class Recording extends Component {
         var h = Math.floor(d / 3600);
         var m = Math.floor(d % 3600 / 60);
         var s = Math.floor(d % 3600 % 60);
-    
+
         var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
         var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
         var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
-        return hDisplay + mDisplay + sDisplay; 
+        return hDisplay + mDisplay + sDisplay;
     }
 
-    formatDate(date){
+    formatDate(date) {
         let dateConverted = new Date(date);
         var monthNames = [
             "January", "February", "March",
             "April", "May", "June", "July",
             "August", "September", "October",
             "November", "December"
-          ];
-        
-          var day = dateConverted.getDate();
-          var monthIndex = dateConverted.getMonth();
-          var year = dateConverted.getFullYear();
-        
+        ];
+
+        var day = dateConverted.getDate();
+        var monthIndex = dateConverted.getMonth();
+        var year = dateConverted.getFullYear();
+
         return day + ' ' + monthNames[monthIndex] + ', ' + year;
     }
 
@@ -80,7 +115,7 @@ export default class Recording extends Component {
                             <p className="recordingTime">Duration: {this.secondsToHms(this.props.duration)}</p>
                             <p className="recordingDate">{this.formatDate(this.props.created)}</p>
                             {
-                                
+
                                 this.printStars(this.props.rating)
                             }
                         </div>
@@ -91,14 +126,14 @@ export default class Recording extends Component {
                             className="btn playButton"
                         >
                             <img
-                                src={this.props.playing ?
+                                src={this.state.playing ?
                                     pauseIcon
                                     :
                                     continueIcon}
                             />
                         </button>
                     </div>
-                    <div className="col-sm-11">
+                    <div id={`Wavesurfer${this.props.i}`} className="col-sm-11">
                         <Wavesurfer
                             audioFile={this.props.url}
                             pos={this.state.pos}
