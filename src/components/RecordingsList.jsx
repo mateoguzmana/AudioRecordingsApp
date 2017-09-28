@@ -6,6 +6,7 @@ import { Redirect } from 'react-router';
 import Wavesurfer from 'react-wavesurfer';
 import HeaderInApp from './HeaderInApp';
 import LoadingPage from './LoadingPage';
+import Recording from './Recording';
 import RecordingsListActions from '../actions/RecordingsListActions';
 import pauseIcon from '../assets/images/pauseIcon.png';
 import continueIcon from '../assets/images/continueIcon.png';
@@ -20,8 +21,7 @@ export default class RecordingsList extends Component {
             redirect: false,
             ajax: false
         };
-        this.handleTogglePlay = this.handleTogglePlay.bind(this);
-        this.handlePosChange = this.handlePosChange.bind(this);
+        
         this.recordingsList = null;
     }
 
@@ -46,8 +46,6 @@ export default class RecordingsList extends Component {
                 }
 
                 setTimeout(() => {
-                    console.log(this.recordingsList);
-                    this.createRecordings();
                     this.setState({ redirect: false, ajax: true });
                 }, 2000);
             },
@@ -60,113 +58,28 @@ export default class RecordingsList extends Component {
 
     }
 
-    handleTogglePlay(i) {
-        this.recordingsList[i].playing = !this.recordingsList[i].playing;
-        this.createRecordings();
-    }
-
-    handlePosChange(e, i) {
-        this.recordingsList[i].playing = e.originalArgs[0];
-    }
-
-    printStars(rating){
-        var stars = [];
-        for (var i=0; i < rating; i++) {
-            stars.push(<img src={yellowStar} className="star"/>);
-        }
-
-        if(rating<5){
-            for(var x = 0; x < (5-rating); x++){
-                stars.push(<img src={blackStar} className="star"/>);
-            }
-        }
-
-        return <div>{stars}</div>;
-    }
-
-    secondsToHms(d) {
-        d = Number(d);
-        var h = Math.floor(d / 3600);
-        var m = Math.floor(d % 3600 / 60);
-        var s = Math.floor(d % 3600 % 60);
-    
-        var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
-        var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
-        var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
-        return hDisplay + mDisplay + sDisplay; 
-    }
-
-    formatDate(date){
-        let dateConverted = new Date(date);
-        var monthNames = [
-            "January", "February", "March",
-            "April", "May", "June", "July",
-            "August", "September", "October",
-            "November", "December"
-          ];
-        
-          var day = dateConverted.getDate();
-          var monthIndex = dateConverted.getMonth();
-          var year = dateConverted.getFullYear();
-        
-        return day + ' ' + monthNames[monthIndex] + ', ' + year;
-    }
-
-    createRecordings() {
-        let recordingsList = (
-            this.recordingsList.map((recording, i) =>
-                <div key={i} className="recording row">
-                    <div className={`col-sm-12 ${this.recordingsList[i].playing ? 'headerRecordingShow' : 'headerRecording'}`}>
-                        <div className="col-sm-10">
-                            <p className="recordingDescription">{recording.final_script}</p>
-                        </div>
-                        <div className="col-sm-2 recordingData">
-                            <p className="recordingTime">Duration: {this.secondsToHms(recording.duration)}</p>
-                            <p className="recordingDate">{this.formatDate(recording.created)}</p>
-                            {
-                                
-                                this.printStars(recording.rating)
-                            }
-                        </div>
-                    </div>
-                    <div className="col-sm-1 text-center">
-                        <button
-                            onClick={() => this.handleTogglePlay(i)}
-                            className="btn playButton"
-                        >
-                            <img
-                                src={this.recordingsList[i].playing ?
-                                    pauseIcon
-                                    :
-                                    continueIcon}
-                            />
-                        </button>
-                    </div>
-                    <div className="col-sm-11">
-                        <Wavesurfer
-                            audioFile={recording.url}
-                            pos={recording.pos}
-                            onPosChange={(e) => this.handlePosChange(e, i)}
-                            playing={this.recordingsList[i].playing}
-                        />
-                    </div>
-                </div>
-            )
-        )
-
-        this.setState({recordingsList: recordingsList});
-    }
-
     render() {
         return (
             <div className="recordingsListPage">
-                <HeaderInApp/>
+                <HeaderInApp />
                 <div className="recordingsListContainer">
                     {
                         this.state.ajax ?
-                            this.state.recordingsList
+                            this.recordingsList.map((recording, i) =>
+                                <Recording
+                                    key={i}
+                                    i={i}
+                                    playing={false}
+                                    pos={0}
+                                    url={recording.url}
+                                    duration={recording.duration}
+                                    created={recording.created}
+                                    rating={recording.rating}
+                                    final_script={recording.final_script}
+                                />
+                            )
                             :
-                            <LoadingPage/>
+                            <LoadingPage />
                     }
                     {
                         this.state.redirect ?
