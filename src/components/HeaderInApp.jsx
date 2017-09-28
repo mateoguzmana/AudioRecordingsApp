@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
+import logo from '../assets/images/logo.png';
 
 export default class Login extends Component {
     constructor(props) {
@@ -48,9 +49,9 @@ export default class Login extends Component {
                     <nav className="navbar navbar-inverse">
                         <div className="container-fluid">
                             <div className="navbar-header">
-                                <a className="navbar-brand" href="#">
+                                <a className="navbar-brand">
                                     <img
-                                    src="https://i2x.ai/img/i2x-logo.png"
+                                    src={logo}
                                     className="logo"
                                     />
                                 </a>

@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router';
 import Wavesurfer from 'react-wavesurfer';
 import HeaderInApp from './HeaderInApp';
+import LoadingPage from './LoadingPage';
 import RecordingsListActions from '../actions/RecordingsListActions';
 import pauseIcon from '../assets/images/pauseIcon.png';
 import continueIcon from '../assets/images/continueIcon.png';
@@ -165,7 +166,7 @@ export default class RecordingsList extends Component {
                         this.state.ajax ?
                             this.state.recordingsList
                             :
-                            <div>Loading...</div>
+                            <LoadingPage/>
                     }
                     {
                         this.state.redirect ?
