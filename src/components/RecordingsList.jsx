@@ -21,7 +21,7 @@ export default class RecordingsList extends Component {
             redirect: false,
             ajax: false
         };
-        
+
         this.recordingsList = null;
     }
 
@@ -62,22 +62,25 @@ export default class RecordingsList extends Component {
         return (
             <div className="recordingsListPage">
                 <HeaderInApp />
-                <div className="recordingsListContainer">
                     {
                         this.state.ajax ?
-                            this.recordingsList.map((recording, i) =>
-                                <Recording
-                                    key={i}
-                                    i={i}
-                                    playing={false}
-                                    pos={0}
-                                    url={recording.url}
-                                    duration={recording.duration}
-                                    created={recording.created}
-                                    rating={recording.rating}
-                                    final_script={recording.final_script}
-                                />
-                            )
+                            <div className="recordingsListContainer">
+                                {
+                                    this.recordingsList.map((recording, i) =>
+                                        <Recording
+                                            key={i}
+                                            i={i}
+                                            playing={false}
+                                            pos={0}
+                                            url={recording.url}
+                                            duration={recording.duration}
+                                            created={recording.created}
+                                            rating={recording.rating}
+                                            final_script={recording.final_script}
+                                        />
+                                    )
+                                }
+                            </div>
                             :
                             <LoadingPage />
                     }
@@ -87,7 +90,6 @@ export default class RecordingsList extends Component {
                                 <Redirect to="/login" />
                             ) : null
                     }
-                </div>
             </div>
         );
     }

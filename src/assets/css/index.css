@@ -17,13 +17,13 @@ html, body {
 
 .logo {
   margin-top: -15px;
+  margin-left: 70%;
   width: 50px;
-  height: 50px;
 }
 
 .headerText {
   margin-top: 12px;
-  margin-left: 20%;
+  margin-left: 30%;
   width: 100%;
   color: #DFDFDF;
 }
@@ -46,11 +46,11 @@ html, body {
 .loadingPage img{
   position: absolute;
   margin: auto;
-  top: 0;
+  top: -20%;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 150px;
+  height: 100px;
   width: auto;
 }
 
@@ -183,6 +183,8 @@ input.invalid{
   }
 
   .recordingsListContainer {
+    z-index: -999;
+    margin-top: 3%;
     max-height: 80%;
     width:100%; 
     height: 100%;
@@ -196,6 +198,7 @@ input.invalid{
     border-radius:100%;
     background-color: #3A61AA;
     color:rgba(49,49,111,0.3);
+    box-shadow: 0 5px 12px 0 rgba(167, 166, 166, 0.31), 0 5px 20px 0 rgba(0,0,0,0.19);
     text-align: center;
     display: inline-flex;
     flex-direction: column;
@@ -217,7 +220,14 @@ input.invalid{
   }
 
   .recordingDescription {
+    margin-left: 2%;
     color: rgba(255, 255, 255, 0.71);
+  }
+
+  .recordingData {
+    margin-right: -12%;
+    font-size: 18px;
+    text-align: right;
   }
 
   .recordingTime {
@@ -230,11 +240,6 @@ input.invalid{
 
   .recordingRating {
     color: rgba(255, 255, 255, 0.71);
-  }
-
-  .recordingData {
-    font-size: 18px;
-    text-align: right;
   }
 
   .star {
