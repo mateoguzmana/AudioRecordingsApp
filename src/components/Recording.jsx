@@ -20,23 +20,28 @@ export default class Recording extends Component {
         this.intervalChangeColors = null;
     }
 
-    componentDidMount() {
-    }
-
     changeCanvasColor(i) {
+        // get canvas to modify
         var canvas = $("#Wavesurfer" + i).find("canvas")[1];
         var c = canvas.getContext('2d');
+
+        // set change colors interval
         this.intervalChangeColors = setInterval(() => {
             c.fillStyle = this.getRandomColor();
             c.fill();
         }, 1000);
+
+        //execute change colors interval
         this.intervalChangeColors;
+
+        //delete interval when recording time finish
         setTimeout(() => {
             clearInterval(this.intervalChangeColors);
         }, this.props.duration * 1000);
     }
 
     getRandomColor() {
+        //get a random HEX COLOR
         var letters = '0123456789ABCDEF';
         var color = '#';
         for (var i = 0; i < 6; i++) {
@@ -47,10 +52,13 @@ export default class Recording extends Component {
 
     handleTogglePlay(i) {
         this.setState({ playing: !this.state.playing });
+
         setTimeout(() => {
+            // if recording is run, execute change colors interval
             if (this.state.playing) {
                 this.changeCanvasColor(i);
             } else {
+                // if recording is stop, clear change colors interval
                 clearInterval(this.intervalChangeColors);
             }
         }, 100);
@@ -62,10 +70,13 @@ export default class Recording extends Component {
 
     printStars(rating) {
         var stars = [];
+
+        // print yellow stars
         for (var i = 0; i < rating; i++) {
             stars.push(<img src={yellowStar} className="star" />);
         }
 
+        // if is any star mising, here is written
         if (rating < 5) {
             for (var x = 0; x < (5 - rating); x++) {
                 stars.push(<img src={blackStar} className="star" />);
@@ -76,6 +87,7 @@ export default class Recording extends Component {
     }
 
     secondsToHms(d) {
+        // convert time provide to human readable time
         d = Number(d);
         var h = Math.floor(d / 3600);
         var m = Math.floor(d % 3600 / 60);
@@ -88,6 +100,7 @@ export default class Recording extends Component {
     }
 
     formatDate(date) {
+        // convert date provide to human readable date
         let dateConverted = new Date(date);
         var monthNames = [
             "January", "February", "March",
