@@ -6,8 +6,8 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "challenge@i2x.ai",
-            password: "pass123",
+            email: "",
+            password: "",
             validEmail: "",
             validPassword: "",
             errorMessage: null,
