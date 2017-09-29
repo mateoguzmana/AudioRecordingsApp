@@ -11,6 +11,7 @@
     "github-fork-ribbon-css": "^0.2.1",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-wavesurfer": "^0.8.6",
     "wavesurfer.js": "^1.4.0"
