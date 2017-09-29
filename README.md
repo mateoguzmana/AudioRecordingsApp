@@ -3,7 +3,9 @@ Audio Recordings App for i2x Challenge
 Live demo
 ---
 
-[mateoguzmana.github.io/AudioRecordingsApp](https://mateoguzmana.github.io/AudioRecordingsApp/)
+[Github Pages](https://mateoguzmana.github.io/AudioRecordingsApp/)
+
+[Heroku](https://audiorecordingsapp.herokuapp.com/)
 
 
 
@@ -13,8 +15,8 @@ Project Installation
 `npm install`
 
 
-Usage
----
+Usage Local
+--- 
 
 `npm start`
 
